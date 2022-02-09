@@ -10,6 +10,7 @@ contract CourseManager {
 
 
     mapping(uint256 => Course) public allCourses;
+    uint256[] public courseKeys;
 
     struct Course {
         uint256 courseId;
@@ -33,13 +34,15 @@ contract CourseManager {
     }
 
     function addCourse(string memory _name, string memory _topic, uint128 _price) public {
-        //srequire();
+        //require();
         //require();
         course.courseId = courseIds;
         course.name = _name;
         course.topic = _topic;
         course.price = _price;
         course.owner = msg.sender;
+
+        courseKeys.push(courseIds);
 
         totalCourses++;
         courseIds++;
@@ -48,5 +51,4 @@ contract CourseManager {
     function getCouse(uint256 _courseId) public view returns(uint256, string memory, address) {
         return(allCourses[_courseId].courseId, allCourses[_courseId].name, allCourses[_courseId].owner);
     }
-    function deleteCouse(uint256 _courseId) public {}
 }
