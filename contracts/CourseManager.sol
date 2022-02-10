@@ -48,7 +48,7 @@ contract CourseManager {
         courseIds++;
 
     }
-    function getCouse(uint256 _courseId) public view returns(uint256, string memory, address) {
+    function getCourse(uint256 _courseId) public view returns(uint256, string memory, address) {
         return(allCourses[_courseId].courseId, allCourses[_courseId].name, allCourses[_courseId].owner);
     }
 }

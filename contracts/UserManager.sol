@@ -3,7 +3,10 @@ pragma solidity ^0.8.0;
 
 import './CourseManager.sol';
 
+/// @title UserManager is the contract that deals with all of the user logic, signing up for the site, registering, etc.
+/// @author Jabari B.
 contract UserManager is CourseManager {
+    /// @notice Id that is assigned to a user on sign up
     uint256 public userIds = 1;
     uint256 public totalUsers;
     CourseManager coursemanager;
@@ -19,7 +22,14 @@ contract UserManager is CourseManager {
     }
     Person public person;
 
+    event NewUser( string _name, address _userAddress);
+    event RegisteredForCourse(uint256 _courseId, address _registrationAddress);
+    event WithdrewFromCourse();
 
+
+    /// @notice This function is for signing up, pretty self-explanatory
+    /// @param _name is the name of the user that is signing up
+    /// @param _userAddress is the address of the user that is signing up
     function signUp( string memory _name, address _userAddress) external {
         for (uint256 i = 0; i <= userKeys.length - 1; i++) {
             require (userKeys[i] != _userAddress, 'A user had already been created with this address');
@@ -35,18 +45,28 @@ contract UserManager is CourseManager {
         userIds++;
         totalUsers++;
 
+        emit NewUser(_name, _userAddress);
     }
 
-    function courseRegister(uint256 _courseId, address _registrationAddress) public payable {
+    /// @notice This is the function that adds a user to a course
+    /// @param _courseId is how courses are referenced throughout the contracts
+    /// @param _registrationAddress is the address of the user that is registering
+    /// @param _userId Similar to `_courseId` userId's are users are refrenced throughout the contracts
+    /// @dev Decided not to use `msg.sender` because I dont want a contract to be able to register
+    function courseRegister(uint256 _courseId, address _registrationAddress, uint256 _userId) public payable {
         require(msg.value >= allCourses[_courseId].price, 'Did not send enough to buy the course');
-        course.users.push();
+        for (uint256 i = 0; i<=allCourses[_courseId].users.length; i++){
+            require(allCourses[_courseId].users[i] != _registrationAddress, 'User is already registered to this course');
+        }
+
+        allUsers[_userId].courseIds.push(_courseId);
         allCourses[_courseId].users.push(_registrationAddress);
 
+        emit RegisteredForCourse(_courseId, _registrationAddress);
     }
     function withdraw() public {}
-    function getCourses() public {}
+
     function getUser(uint256 _userId) public view returns(address) {
         return(allUsers[_userId].userAddress);
     }
-    
 }
