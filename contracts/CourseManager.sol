@@ -33,14 +33,18 @@ contract CourseManager {
         _;
     }
 
+    ///@dev add keccack256 function to compare strings
     function addCourse(string memory _name, string memory _topic, uint128 _price) public {
-        //require();
-        //require();
+        for (uint256 i = 0; i < courseKeys.length; i++) {
+            //require(allCourses[courseKeys[i]].name != _name, 'There is already a course with that name');
+        }
+
         course.courseId = courseIds;
         course.name = _name;
         course.topic = _topic;
         course.price = _price;
         course.owner = msg.sender;
+        allCourses[courseIds] = course;
 
         courseKeys.push(courseIds);
 
