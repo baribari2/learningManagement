@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+.add-course-container {
+    /* border: 1px solid red;   */
+
+    border-radius: 0px 10px 10px 10px;
+    margin: 40px 10px 10px;
+    display: flex;
+    flex-direction: column;
+
+    background-color: rgb(108, 107, 107);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    
+    /* margin-left: 100px; */
+}
+
+label {
+    position: relative;
+    color: white;
+    background-color: rgb(169, 169, 169);
+
+    /* border: 1px solid red; */
+    border-radius: 0px 7px 7px 7px;
+    padding: 10px;
+
+}
+.name-input {
+    width: 320px;
+    border: 2px solid;
+
+    padding-left: 10px;
+    margin-left: 10px;
+
+}
+.topic-input {
+    width: 320px;
+    border: 2px solid;
+
+    padding-left: 10px;
+    margin-left: 10px;
+
+}
+.price-input {
+    width: 320px;
+    border: 2px solid;
+
+    padding-left: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+
+    .add-course-container {
+        /* border: 1px solid red;   */
+    
+        border-radius: 0px 10px 10px 10px;
+        margin: 40px 10px 10px;
+        display: flex;
+        flex-direction: column;
+    
+        background-color: rgb(108, 107, 107);
+        color: white;
+        font-family: 'Poppins', sans-serif;
+        max-width: 365px;
+        
+        /* margin-left: 100px; */
+    }
+    
+    .name-input {
+        width: 320px;
+        border: 2px solid;
+    
+        padding-left: 10px;
+        margin-left: 10px;
+    
+    }
+    .topic-input {
+        width: 320px;
+        border: 2px solid;
+    
+        padding-left: 10px;
+        margin-left: 10px;
+    
+    }
+    .price-input {
+        width: 320px;
+        border: 2px solid;
+    
+        padding-left: 10px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+    
+
+}

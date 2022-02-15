@@ -65,6 +65,10 @@ input {
     background-color: #32fa64 ;
     cursor: pointer;
 }
-.search-container {
-    display: none;
+
+@media only screen and (min-width: 375px) {
+    .search-container {
+        display: none;
+    }
+
 }

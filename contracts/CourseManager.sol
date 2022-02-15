@@ -9,6 +9,7 @@ contract CourseManager {
     address public owner;
 
 
+
     mapping(uint256 => Course) public allCourses;
     uint256[] public courseKeys;
 
@@ -23,6 +24,12 @@ contract CourseManager {
 
     }
     Course public course;
+
+
+    ///@dev add a categories struct to sort courses
+    // struct Categories {
+    //     string 
+    // }
 
     constructor() {
         owner == msg.sender;
