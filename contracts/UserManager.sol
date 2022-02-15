@@ -68,7 +68,8 @@ contract UserManager is CourseManager {
         for (uint256 i = 0; i <= allCourses[_courseId].users.length - 1; i++) {
             if (allCourses[_courseId].users[i] == allUsers[_userId].userAddress){
                 /// @dev figure out how to delete item from an array
-                //allUsers[]
+                delete allUsers[_userId].courseIds[_courseId];
+                delete allCourses[_courseId].users[_userId];
             }
         }
 
