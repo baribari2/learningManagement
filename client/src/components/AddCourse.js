@@ -5,19 +5,45 @@ import ReactDOM from 'react-dom';
 import { ethers } from 'ethers';
 
 import './AddCourse.css';
-
+import CourseManager from '../artifacts/contracts/CourseManager.sol/CourseManager.json';
+import UserManager from '../artifacts/contracts/UserManager.sol/UserManager.json';
 function AddCourse() {
+
+    const userABI = UserManager.abi;
+    const userAddress = '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512';
+    const courseABI = CourseManager.abi;
+    const courseAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 
     const [nameInput, SetNameInput] = useState('');
     const [topicInput, SetTopicInput] = useState('');
     const [priceInput, SetPriceInput] = useState('');
 
-    function handleSubmit(e) {
-        e.preventDefault();
+    function connectUser(e){
+        e.preventDefault() 
 
+        console.log('It works');
+    }
+    
+    async function handleSubmit(e) {
+        e.preventDefault();
+        if (typeof window.ethereum != 'undefined') {
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
+            const coursemanager = new ethers.Contract(courseAddress, courseABI, signer);
+
+            const callPrice = ethers.utils.formatEther("700");
+            console.log(callPrice);
+            //const submitCourse = await coursemanager.addCourse(nameInput, topicInput, callPrice);
+            //submitCourse.wait();
+        }
+
+        
         console.log( nameInput );
         console.log( topicInput );
         console.log( priceInput );
+        
     }
 
     return(

@@ -13,12 +13,17 @@
 }
 
 .nav-header {
-    margin-top: 18px;
-    font-size: 20px;
+    margin-top: 22px;
+    font-size: 15px;
+
+    position: relative;
+    left: -10px;
 
 }
 
 .sign-up-button {
+    position: relative;
+    right: -10px;
     margin-right: 20px;
     margin-top: 10px;
     height: 50px;
@@ -27,8 +32,8 @@
     background-color: #01D436 ;
     color: white;
     font-weight: 30px;
-    font-size: 20px;
-    padding: 10px 40px;
+    font-size: 15px;
+    padding: 0px 30px;
     border-style: none;
 
     transition: background-color 0.3s;
@@ -67,7 +72,7 @@ input {
 }
 
 @media only screen and (min-width: 375px) {
-    .search-container {
+    .search-bar {
         display: none;
     }
 
