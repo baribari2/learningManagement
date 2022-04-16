@@ -24,12 +24,14 @@ contract CourseManager {
         Productivity
     }
 
+    // Have to figure out whether to use arweave or IPFS for storing course content
     struct Course {
         uint256 courseHash;
         string name;
         uint128 price;
         address owner;
-        address[] users;
+        mapping (address => bool) public isUser;
+        address[] users; //user addresses
         string courseBaseURI;
         uint256[] courseIPFSId;
         Categories categories;
@@ -63,48 +65,48 @@ contract CourseManager {
     /// but no course should have 10,000 lessons
     ///@dev add keccack256 function to compare strings
     /// @dev Have to figure out how to concat strings
-    // function addCourse(
-    //     string memory _name,
-    //     uint128 _price,
-    //     string memory _courseBaseURI,
-    //     uint256[] memory _courseIPFSId
-    // ) public {
-    //     for (uint256 i = 0; i < courseKeys.length; i++) {
-    //         require(
-    //             keccak256(abi.encode(allCourses[courseKeys[i]].name)) != keccak256(abi.encode(_name)),
-    //             'There is already a course with that name');
-    //     }
+    function addCourse(
+        string memory _name,
+        uint128 _price,
+        string memory _courseBaseURI,
+        uint256[] memory _courseIPFSId
+    ) public {
+        for (uint256 i = 0; i < courseKeys.length; i++) {
+            require(
+                keccak256(abi.encode(allCourses[courseKeys[i]].name)) != keccak256(abi.encode(_name)),
+                'There is already a course with that name');
+        }
 
-    //     course.courseId = courseIds;
-    //     course.name = _name;
-    //     course.price = _price;
-    //     course.owner = msg.sender;
-    //     allCourses[courseIds] = course;
+        course.courseId = courseIds;
+        course.name = _name;
+        course.price = _price;
+        course.owner = msg.sender;
+        allCourses[courseIds] = course;
 
-    //     courseKeys.push(courseIds);
+        courseKeys.push(courseIds);
 
-    //     totalCourses++;
-    //     courseIds++;
+        totalCourses++;
+        courseIds++;
 
-    //     string[] memory uintToStringArray;
-    //     for (uint256 i = 0; i < _courseIPFSId.length; i++){
-    //         uintToStringArray[i] = Strings.toString(_courseIPFSId[i]);
-    //     }
-    //     // for (uint256 i = 0; i < uintToStringArray.length; i++) {
-    //     //     allCourses[course.courseId].courseURIs[i] = appendUintToString(_courseBaseURI, uintToStringArray[i]);
-    //     // }
+        // string[] memory uintToStringArray;
+        // for (uint256 i = 0; i < _courseIPFSId.length; i++){
+        //     uintToStringArray[i] = Strings.toString(_courseIPFSId[i]);
+        // }
+        // for (uint256 i = 0; i < uintToStringArray.length; i++) {
+        //     allCourses[course.courseId].courseURIs[i] = appendUintToString(_courseBaseURI, uintToStringArray[i]);
+        // }
 
-    // }
+    }
 
-    // function getCourse(uint256 _courseId)
-    // public
-    // view
-    //  returns(
-    //      uint256,
-    //      string memory,
-    //      address
-    //     ) {
-    //     return(allCourses[_courseId].courseId, allCourses[_courseId].name, allCourses[_courseId].owner);
-    // }
+    function getCourse(uint256 _courseId)
+    public
+    view
+     returns(
+         uint256,
+         string memory,
+         address
+        ) {
+        return(allCourses[_courseId].courseId, allCourses[_courseId].name, allCourses[_courseId].owner);
+    }
 
 }
