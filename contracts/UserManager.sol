@@ -53,16 +53,21 @@ contract UserManager is CourseManager {
     /// @param _registrationAddress is the address of the user that is registering
     /// @param _userId Similar to `_courseId` userId's are users are refrenced throughout the contracts
     /// @dev Decided not to use `msg.sender` because I dont want a contract to be able to register
-    function courseRegister(uint256 _courseId, address _registrationAddress, uint256 _userId) public payable {
-        require(msg.value >= allCourses[_courseId].price, 'Did not send enough to buy the course');
-        for (uint256 i = 0; i<=allCourses[_courseId].users.length - 1; i++){
-            require(allCourses[_courseId].users[i] != _registrationAddress, 'User is already registered to this course');
-        }
+    function courseRegister(
+        uint256 _courseId, 
+        address _registrationAddress, 
+        uint256 _userId) 
+        public 
+        payable {
+            require(msg.value >= allCourses[_courseId].price, 'Did not send enough to buy the course');
+            for (uint256 i = 0; i<=allCourses[_courseId].users.length - 1; i++){
+                require(allCourses[_courseId].users[i] != _registrationAddress, 'User is already registered to this course');
+            }
 
-        allUsers[_userId].courseIds.push(_courseId);
-        allCourses[_courseId].users.push(_registrationAddress);
+            allUsers[_userId].courseIds.push(_courseId);
+            allCourses[_courseId].users.push(_registrationAddress);
 
-        emit RegisteredForCourse(_courseId, _registrationAddress);
+            emit RegisteredForCourse(_courseId, _registrationAddress);
     }
     function withdraw(uint256 _userId, uint256 _courseId) public {
         for (uint256 i = 0; i <= allCourses[_courseId].users.length - 1; i++) {

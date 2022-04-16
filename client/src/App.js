@@ -1,15 +1,11 @@
 import './App.css';
-import Navbar from './components/Navbar';
 
-import AddCourse from './components/AddCourse';
-import NewCourses from './components/NewCourses';
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
   return (
     <div className="App">
       <Navbar />
-      <AddCourse />
-      <NewCourses />
     </div>
   );
 }
