@@ -7,12 +7,12 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 contract CourseManager {
 
     uint256 public totalCourses; // counter
-    // uint256 public courseIds = 1;
+    uint256 public courseIds = 1;
     address public owner; // contract owner
     address private feeCollectorAddress; // address that fees are sent to
 
-    mapping(bytes32 => Course) public allCourses;
-    bytes32[] public courseKeys;
+    mapping(uint256 => Course) public allCourses;
+    uint256[] public courseKeys;
 
     enum Categories {
         Development,
@@ -27,17 +27,18 @@ contract CourseManager {
     // Have to figure out whether to use arweave or IPFS for storing course content
     struct Course {
         uint256 courseHash;
+        uint256 courseId;
         string name;
         uint128 price;
         address owner;
-        mapping (address => bool) public isUser;
+        mapping (uint256 => bool) isRegistered;
         address[] users; //user addresses
         string courseBaseURI;
         uint256[] courseIPFSId;
         Categories categories;
 
     }
-    Course public course;
+    Course public course  = allCourses[courseIds];
 
     constructor() {
         owner == msg.sender;
@@ -46,17 +47,6 @@ contract CourseManager {
     modifier onlyOwner() {
         require (msg.sender == owner);
         _;
-    }
-
-    function addCourse (
-        string _name,
-        uint128 _price,
-        address _owner,
-        string _courseBaseURI,
-        uint256 _amount
-    ) public {
-        
-
     }
 
     /// @notice Function that creates courses, it takes in the baseURI and Id's and sets the URI
@@ -81,7 +71,7 @@ contract CourseManager {
         course.name = _name;
         course.price = _price;
         course.owner = msg.sender;
-        allCourses[courseIds] = course;
+       // allCourses[courseIds] = course;
 
         courseKeys.push(courseIds);
 
