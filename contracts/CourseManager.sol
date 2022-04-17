@@ -38,7 +38,7 @@ contract CourseManager {
         Categories categories;
 
     }
-    Course public course  = allCourses[courseIds];
+    Course public course;
 
     constructor() {
         owner == msg.sender;
@@ -64,7 +64,8 @@ contract CourseManager {
         for (uint256 i = 0; i < courseKeys.length; i++) {
             require(
                 keccak256(abi.encode(allCourses[courseKeys[i]].name)) != keccak256(abi.encode(_name)),
-                'There is already a course with that name');
+                'There is already a course with that name'
+            );
         }
 
         course.courseId = courseIds;
@@ -96,7 +97,11 @@ contract CourseManager {
          string memory,
          address
         ) {
-        return(allCourses[_courseId].courseId, allCourses[_courseId].name, allCourses[_courseId].owner);
+        return(
+            allCourses[_courseId].courseId, 
+            allCourses[_courseId].name, 
+            allCourses[_courseId].owner
+        );
     }
 
 }
